@@ -1,0 +1,190 @@
+# Use with following config: https://gist.github.com/MarcStocker/ce703cbce98c6ad5a342d70840f04cdc
+sequence:
+  - alias: Master Bedroom
+    if:
+      - condition: template
+        value_template: |-
+          {% if 'masterbedroom' in select_tv %}
+            true
+          {% else %} 
+            false
+          {% endif %}
+    then:
+      - action: notify.tvoverlaynotifymaster
+        metadata: {}
+        data:
+          message: |
+            {{ message | default(null) }}
+          data:
+            id: "{{ message_id | default(null) }}"
+            appTitle: |
+              {{ title | default(null) }}
+            color: >-
+              #{{ '%02x%02x%02x' |  format(color[0],color[1],color[2]) |
+              default('FFFFAA')  }}
+            image: |
+              {{ image | default(null) }}
+            video: |
+              {{ video | default(null) }}
+            smallIcon: |
+              {{ small_icon | default(null) }}
+            largeIcon: |
+              {{ large_icon | default(null) }}
+            corner: |
+              {{ corner  | default(null) }} 
+            seconds: |
+              {{ duration | default(5) }}
+        continue_on_error: true
+  - alias: Living Room TV
+    if:
+      - condition: template
+        value_template: |-
+          {% if 'livingroom' in select_tv %}
+            true
+          {% else %} 
+            false
+          {% endif %}
+    then:
+      - action: notify.tvoverlaynotifylivingroom
+        metadata: {}
+        data:
+          title: |
+            {{ title | default(null) }}
+          message: |
+            {{ message | default(null) }}
+          data:
+            id: "{{ message_id | default(null) }}"
+            appTitle: |
+              {{ app_title | default(null) }}
+            color: >-
+              #{{ '%02x%02x%02x' |  format(color[0],color[1],color[2]) |
+              default(null)  }}
+            image: |
+              {{ image | default(null) }}
+            video: |
+              {{ video | default(null) }}
+            smallIcon: |
+              {{ small_icon | default(null) }}
+            largeIcon: |
+              {{ large_icon | default(null) }}
+            corner: |
+              {{ corner  | default(null) }} 
+            seconds: |
+              {{ duration | default(5) }}
+        continue_on_error: true
+  - stop: ""
+  - action: notify.tvoverlaynotifymasterfixed
+    metadata: {}
+    data:
+      message: "null"
+      data:
+        id: "{{ message_id | default(null) }}"
+        text: |
+          {{ text | default(null) }}
+        icon: |
+          {{ icon | default(null) }}
+        shape: |
+          {{ shape }}
+        textColor: >-
+          #{{ '%02x%02x%02x' | format(text_color[0],text_color[1],text_color[2])
+          | default('FFFFFF') }}
+        iconColor: >-
+          #{{ '%02x%02x%02x' | format(icon_color[0],icon_color[1],icon_color[2])
+          | default('FFFFFF') }}
+        borderColor: >-
+          #{{ '%02x%02x%02x' | 
+          format(border_color[0],border_color[1],border_color[2]) |
+          default('FFFFFF')  }}
+        backgroundColor: >-
+          #{{ '%02x%02x%02x%02x' | 
+          format(background_transparency,background_color[0],background_color[1],background_color[2])
+          | default('FFFFFFAA')  }}
+        expiration: "{{ expiration | default(5) }}"
+alias: Dynamic TV Overlay Notification
+fields:
+  select_tv:
+    selector:
+      select:
+        options:
+          - label: Master TV
+            value: masterbedroom
+          - label: Living Room TV
+            value: livingroom
+        multiple: true
+    name: Select TV
+    required: true
+  message_id:
+    selector:
+      text: null
+    name: Message ID
+    required: true
+    default: default
+    description: >-
+      Unique Message ID to update or dismiss notification (Defaults to
+      'default')
+  message:
+    selector:
+      text: null
+    name: Message
+  title:
+    selector:
+      text: {}
+    name: Title
+  image:
+    selector:
+      text: {}
+    name: Image
+    description: Image
+  video:
+    selector:
+      text: {}
+    name: Video
+  large_icon:
+    selector:
+      icon: {}
+    name: Large Icon
+  small_icon:
+    selector:
+      icon: {}
+    name: Small Icon
+  color:
+    selector:
+      color_rgb: {}
+    name: Color
+    default:
+      - 47
+      - 229
+      - 244
+  duration:
+    selector:
+      number:
+        min: 0
+        max: 9999
+        step: 1
+    name: Duration
+    description: >-
+      The time when the fixed notification will be removed. Valid formats:
+      1695693410 (Epoch time), 1y2w3d4h5m6s (duration format) or 123 (for
+      seconds)
+    default: 5
+  corner:
+    selector:
+      select:
+        options:
+          - label: Top Left
+            value: top_start
+          - label: Top Right
+            value: top_end
+          - label: Bottom Left
+            value: bottom_start
+          - label: Bottom Right
+            value: bottom_end
+    name: Corner
+    description: Which corner does the notification spawn in?
+    default: top_start
+    required: false
+  app_title:
+    selector:
+      text: null
+    name: App Title
+description: A notification for PIctures/Video Streams

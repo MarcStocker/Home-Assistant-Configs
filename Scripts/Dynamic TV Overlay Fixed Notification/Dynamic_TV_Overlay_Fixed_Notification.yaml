@@ -1,0 +1,215 @@
+# Use with following config: https://gist.github.com/MarcStocker/ce703cbce98c6ad5a342d70840f04cdc
+alias: Dynamic TV Overlay Fixed Notification
+sequence:
+  - alias: Master Bedroom
+    if:
+      - condition: template
+        value_template: |-
+          {% if 'masterbedroom' in select_tv %}
+            true
+          {% else %} 
+            false
+          {% endif %}
+    then:
+      - action: notify.tvoverlaynotifymasterfixed
+        metadata: {}
+        data:
+          message: "null"
+          data:
+            id: "{{ message_id | default(null) }}"
+            text: |
+              {{ text | default(null) }}
+            icon: |
+              {{ icon | default(null) }}
+            shape: |
+              {{ shape }}
+            textColor: >-
+              #{{ '%02x%02x%02x' |
+              format(text_color[0],text_color[1],text_color[2]) |
+              default('FFFFFF') }}
+            iconColor: >-
+              #{{ '%02x%02x%02x' |
+              format(icon_color[0],icon_color[1],icon_color[2]) |
+              default('FFFFFF') }}
+            borderColor: >-
+              #{{ '%02x%02x%02x' | 
+              format(border_color[0],border_color[1],border_color[2]) |
+              default('FFFFFF')  }}
+            backgroundColor: >-
+              #{{ '%02x%02x%02x%02x' | 
+              format(background_transparency,background_color[0],background_color[1],background_color[2])
+              | default('FFFFFFAA')  }}
+            expiration: "{{ expiration | default(5) }}"
+        continue_on_error: true
+  - alias: Living Room TV
+    if:
+      - condition: template
+        value_template: |-
+          {% if 'livingroom' in select_tv %}
+            true
+          {% else %} 
+            false
+          {% endif %}
+    then:
+      - action: notify.tvoverlaynotifylivingroomfixed
+        metadata: {}
+        data:
+          message: "null"
+          data:
+            id: "{{ message_id | default(null) }}"
+            text: |
+              {{ text | default(null) }}
+            icon: |
+              {{ icon | default(null) }}
+            shape: |
+              {{ shape }}
+            textColor: >-
+              #{{ '%02x%02x%02x' |
+              format(text_color[0],text_color[1],text_color[2]) |
+              default('FFFFFF') }}
+            iconColor: >-
+              #{{ '%02x%02x%02x' |
+              format(icon_color[0],icon_color[1],icon_color[2]) |
+              default('FFFFFF') }}
+            borderColor: >-
+              #{{ '%02x%02x%02x' | 
+              format(border_color[0],border_color[1],border_color[2]) |
+              default('FFFFFF')  }}
+            backgroundColor: >-
+              #{{ '%02x%02x%02x%02x' | 
+              format(background_transparency,background_color[0],background_color[1],background_color[2])
+              | default('FFFFFFAA')  }}
+            expiration: "{{ expiration | default(5) }}"
+        enabled: true
+        continue_on_error: true
+  - stop: ""
+  - action: notify.tvoverlaynotifymasterfixed
+    metadata: {}
+    data:
+      message: "null"
+      data:
+        id: "{{ message_id | default(null) }}"
+        text: |
+          {{ text | default(null) }}
+        icon: |
+          {{ icon | default(null) }}
+        shape: |
+          {{ shape }}
+        textColor: >-
+          #{{ '%02x%02x%02x' | format(text_color[0],text_color[1],text_color[2])
+          | default('FFFFFF') }}
+        iconColor: >-
+          #{{ '%02x%02x%02x' | format(icon_color[0],icon_color[1],icon_color[2])
+          | default('FFFFFF') }}
+        borderColor: >-
+          #{{ '%02x%02x%02x' | 
+          format(border_color[0],border_color[1],border_color[2]) |
+          default('FFFFFF')  }}
+        backgroundColor: >-
+          #{{ '%02x%02x%02x%02x' | 
+          format(background_transparency,background_color[0],background_color[1],background_color[2])
+          | default('FFFFFFAA')  }}
+        expiration: "{{ expiration | default(5) }}"
+fields:
+  select_tv:
+    selector:
+      select:
+        options:
+          - label: Master TV
+            value: masterbedroom
+          - label: Living Room TV
+            value: livingroom
+        multiple: true
+    name: Select TV
+    required: true
+  message_id:
+    selector:
+      text: null
+    name: Message ID
+    required: true
+    default: default
+    description: >-
+      Unique Message ID to update or dismiss notification (Defaults to
+      'default')
+  text:
+    selector:
+      text: null
+    name: Text
+  icon:
+    selector:
+      icon: {}
+    name: Icon
+  text_color:
+    selector:
+      color_rgb: {}
+    name: Text Color
+    description: "#FFFFFF"
+    default:
+      - 127
+      - 127
+      - 127
+  icon_color:
+    selector:
+      color_rgb: {}
+    name: Icon Color
+    description: "#FFFFFF"
+    default:
+      - 165
+      - 165
+      - 165
+  border_color:
+    selector:
+      color_rgb: {}
+    name: Border Color
+    default:
+      - 165
+      - 165
+      - 165
+  background_color:
+    selector:
+      color_rgb: {}
+    name: Background Color
+    description: "#66000000"
+    default:
+      - 71
+      - 71
+      - 71
+  background_transparency:
+    selector:
+      number:
+        min: 0
+        max: 255
+        step: 1
+    name: Background Transparency
+    description: 0 is fully transparent, 255 is fully opaque.
+    default: 150
+  shape:
+    selector:
+      select:
+        options:
+          - label: Circle
+            value: circle
+          - label: Rounded
+            value: rounded
+          - label: Rectangular
+            value: rectangular
+    name: Shape
+  visible:
+    selector:
+      boolean: {}
+    name: Visible
+    default: true
+    required: false
+  expiration:
+    selector:
+      number:
+        min: 0
+        max: 9999
+        step: 1
+    name: Expiration
+    description: >-
+      The time when the fixed notification will be removed. Valid formats:
+      1695693410 (Epoch time), 1y2w3d4h5m6s (duration format) or 123 (for
+      seconds)
+    default: 5
+description: ""
