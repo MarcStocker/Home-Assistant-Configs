@@ -34,33 +34,39 @@ sequence:
 
         {{ notification.data }}
       mobile_notification_data: >-
-        {% set notification = namespace(data={}) %}   {% set additional =
-        namespace(data={}) %}   {% set push = namespace(data={}) %}   {% set
-        actions = [] %}
+        {% set notification = namespace(data={}) %}   
+        {% set additional   = namespace(data={}) %}   {% set push = namespace(data={}) %}   
+        {% set actions = [] %}
 
         {% if title %}
           {% set notification.data = dict(notification.data, **{ 'title': title }) %}
-        {% endif %} {% if message %}
+        {% endif %} 
+        {% if message %}
           {% set notification.data = dict(notification.data, **{ 'message': message }) %}
         {% endif %}
 
         {% if notification_icon %}
           {% set additional.data = dict(additional.data, **{ 'notification_icon': notification_icon }) %}
-        {% endif %} {% if notification_color %}
+        {% endif %} 
+        {% if notification_color %}
           {% set hex_color = '#%02x%02x%02x' | format(notification_color[0], notification_color[1], notification_color[2]) %}
           {% set additional.data = dict(additional.data, **{ 'color': hex_color }) %}
-        {% endif %} {% if image_icon %}
+        {% endif %} 
+        {% if image_icon %}
           {% set additional.data = dict(additional.data, **{ 'icon_url': image_icon }) %}
-        {% endif %} {% if image %}
+        {% endif %} 
+        {% if image %}
           {% set additional.data = dict(additional.data, **{ 'image': image }) %}
         {% endif %}
 
 
         {% if tag %}
           {% set additional.data = dict(additional.data, **{ 'tag': tag }) %}
-        {% endif %} {% if channel %}
+        {% endif %} 
+        {% if channel %}
           {% set additional.data = dict(additional.data, **{ 'channel': channel }) %}
-        {% endif %} {% if group %}
+        {% endif %} 
+        {% if group %}
           {% set additional.data = dict(additional.data, **{ 'group': group }) %}
         {% endif %}
 
@@ -71,7 +77,8 @@ sequence:
 
         {% if sticky %}
           {% set additional.data = dict(additional.data, **{ 'sticky': sticky }) %}
-        {% endif %} {% if persistent %}
+        {% endif %} 
+        {% if persistent %}
           {% set additional.data = dict(additional.data, **{ 'persistent': persistent }) %}
         {% endif %}
 
@@ -87,7 +94,8 @@ sequence:
         {% if progress %}
           {% set additional.data = dict(additional.data, **{ 'progress': progress }) %}
           {% set additional.data = dict(additional.data, **{ 'progress_max': progress_max | default(100) }) %}
-        {% endif %} {% if progress_indeterminate %}
+        {% endif %} 
+        {% if progress_indeterminate %}
           {% set additional.data = dict(additional.data, **{ 'progress': 1 }) %}
           {% set additional.data = dict(additional.data, **{ 'progress_indeterminate': progress_indeterminate }) %}
         {% endif %}
@@ -115,38 +123,57 @@ sequence:
         {% endif %}
 
 
-        {% if action_1_action or action_1_custom_action or action_1_title or
-        action_1_uri %}
+        {% if action_1_action or action_1_custom_action or action_1_title or action_1_uri %}
           {% set action = dict() %}
-          {% if action_1_action or action_1_custom_action %}{% set action = dict(action, **{ 'action': action_1_custom_action if action_1_custom_action else action_1_action }) %}{% endif %}
-          {% if action_1_title %}{% set action = dict(action, **{ 'title': action_1_title }) %}{% endif %}
-          {% if action_1_uri %}{% set action = dict(action, **{ 'uri': action_1_uri }) %}{% endif %}
+          {% if action_1_action or action_1_custom_action %}
+            {% set action = dict(action, **{ 'action': action_1_custom_action if action_1_custom_action else action_1_action }) %}
+          {% endif %}
+          {% if action_1_title %}
+            {% set action = dict(action, **{ 'title': action_1_title }) %}
+          {% endif %}  
+          {% if action_1_uri %}
+            {% set action = dict(action, **{ 'uri': action_1_uri }) %}
+          {% endif %}
           {% set actions = actions + [action] %}
-        {% endif %}  {% if action_2_action or action_2_custom_action or
-        action_2_title or action_2_uri %}
+        {% endif %}  
+        {% if action_2_action or action_2_custom_action or action_2_title or action_2_uri %}
           {% set action = dict() %}
-          {% if action_2_action or action_2_custom_action %}{% set action = dict(action, **{ 'action': action_2_custom_action if action_2_custom_action else action_2_action }) %}{% endif %}
-          {% if action_2_title %}{% set action = dict(action, **{ 'title': action_2_title }) %}{% endif %}
-          {% if action_2_uri %}{% set action = dict(action, **{ 'uri': action_2_uri }) %}{% endif %}
+          {% if action_2_action or action_2_custom_action %}
+            {% set action = dict(action, **{ 'action': action_2_custom_action if action_2_custom_action else action_2_action }) %}
+          {% endif %}
+          {% if action_2_title %}
+            {% set action = dict(action, **{ 'title': action_2_title }) %}
+          {% endif %}
+          {% if action_2_uri %}
+            {% set action = dict(action, **{ 'uri': action_2_uri }) %}
+          {% endif %}
           {% set actions = actions + [action] %}
-        {% endif %}  {% if action_3_action or action_3_custom_action or
-        action_3_title or action_3_uri %}
+        {% endif %} 
+        {% if action_3_action or action_3_custom_action or action_3_title or action_3_uri %}
           {% set action = dict() %}
-          {% if action_3_action or action_3_custom_action %}{% set action = dict(action, **{ 'action': action_3_custom_action if action_3_custom_action else action_3_action }) %}{% endif %}
-          {% if action_3_title %}{% set action = dict(action, **{ 'title': action_3_title }) %}{% endif %}
-          {% if action_3_uri %}{% set action = dict(action, **{ 'uri': action_3_uri }) %}{% endif %}
+          {% if action_3_action or action_3_custom_action %}
+            {% set action = dict(action, **{ 'action': action_3_custom_action if action_3_custom_action else action_3_action }) %}
+          {% endif %}
+          {% if action_3_title %}
+            {% set action = dict(action, **{ 'title': action_3_title }) %}
+          {% endif %}
+          {% if action_3_uri %}
+            {% set action = dict(action, **{ 'uri': action_3_uri }) %}
+          {% endif %}
           {% set actions = actions + [action] %}
-        {% endif %} {% if actions %}
+        {% endif %} 
+        {% if actions %}
           {% set additional.data = dict(additional.data, **{ 'actions': actions }) %}
         {% endif %}
 
-        {% set additional.data = dict(additional.data, **{ 'priority': "high" })
-        %} {% set additional.data = dict(additional.data, **{ 'ttl': 0 }) %}
+        {% set additional.data = dict(additional.data, **{ 'priority': "high" }) %} 
+        {% set additional.data = dict(additional.data, **{ 'ttl': 0 }) %}
 
         {% if command %}
           {% set additional.data = dict(additional.data, **{ 'command': message }) %}
           {% set notification.data = dict(notification.data, **{ 'message': command }) %}
-        {% endif %} {% if push.data %} # iOS Only
+        {% endif %} 
+        {% if push.data %} # iOS Only
           {% set additional.data = dict(additional.data, **{ 'push': push.data }) %}
         {% endif %}
 
