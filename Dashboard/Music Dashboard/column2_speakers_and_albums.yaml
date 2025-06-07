@@ -1,0 +1,1321 @@
+type: grid
+cards:
+  - type: heading
+    icon: mdi:speaker-wireless
+    heading_style: title
+    heading: Speaker Selection
+  - square: false
+    type: grid
+    cards:
+      - type: custom:mushroom-select-card
+        entity: input_select.music_broadcast_select
+        name: Select Media Player Group
+        icon: mdi:cast-audio
+        fill_container: false
+        secondary_info: none
+        layout: vertical
+    columns: 1
+    grid_options:
+      columns: 9
+      rows: 2.3
+  - type: custom:mushroom-entity-card
+    entity: input_boolean.enable_mass_music_broadcast_tranfer
+    layout: vertical
+    name: Tranfer Queue
+    tap_action:
+      action: toggle
+    grid_options:
+      columns: 3
+      rows: 2.3
+  - type: heading
+    icon: mdi:spotify
+    heading: Made for ME
+    heading_style: title
+    layout_options:
+      grid_columns: full
+      grid_rows: 1
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://newjams-images.scdn.co/image/ab676477000033ad/dt/v3/discover-weekly/y_pP8dIOOCJGRl8XqUpNOenMXxUIHPftQ0YBaRKpGaqMWBsrAcTa0suOAg7HVB47b6BL34wpx3KC8CAq09tzI6rMrSwXE7FhnJWogxPchFRXvomYp0qk5uLDt8xhw0btpm0pNTxQpwSCpwqqiMt4wNICjWxv87XXDJt2CxmpEdYqmf6vdZ44BLIBaewhRCxoOSKiEmfnRoD6bgHK7UtoyO07_3NwMka6sjId7lA6rrB6RGtwLR9nrsjRylDL2SWX0AXI4s-zJ6OpNT82v9jCDSQZpZkCkgK4PkKkZrtQs9w5cg7UjVNXDW0haIMTS6NdADhGK59CpLX3K3Y2UlsAK0NHVyaEBKOdtfLSbZQOnh6eSk2rkyHvQbc3gsIk6CjhjVBUcmHMqRKKxo2JwNdDDqWYksemcNqHLgApniSa44k=/MTE6MjE6MTJUNTAtNjAtNA==')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ALBUM_ART}
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: ('https://i.scdn.co/image/ab67706f00000002b0dc1e9a518d5fae0a7ff4b0')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify:///playlist/')
+      ALBUM_ART: ('https://i.scdn.co/image/ab67616d000048510a3ff6ceff55aeb55f1ee8bb')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: ('https://lineup-images.scdn.co/tastebreakers_DEFAULT-en.jpg')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://newjams-images.scdn.co/image/ab67647800003f8a/dt/v3/release-radar/ab6761610000e5eb8e9b406b9a5a120bf6fb4d21/en')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb8e9b406b9a5a120bf6fb4d21/1/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://dailymix-images.scdn.co/v2/img/ab6761610000e5ebe385819b611d2524bf08182a/2/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb5644fb9131f0550a7611184c/3/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb9f4a0cbfcc9b274344681ccb/4/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb897904822f196dc6ba91e0d2/5/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb947bd0673339d02baa403488/6/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://daylist.spotifycdn.com/playlist-covers-mix/en/afternoon_default.jpg')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: ('https://lineup-images.scdn.co/summer-rewind-2020_DEFAULT-en.jpg')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/ ')
+      ALBUM_ART: >-
+        ('https://daily-mix.scdn.co/covers/on_repeat/PZN_On_Repeat2_DEFAULT-en.jpg')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://daily-mix.scdn.co/covers/backtracks/PZN_Repeat_Rewind2_DEFAULT-en.jpg')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: heading
+    icon: mdi:spotify
+    heading: Radio
+    heading_style: title
+    layout_options:
+      grid_columns: 4
+      grid_rows: 1
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/artist/21mKp7DqtSNHhCAU2ugvUw/en')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/artist/28j8lBWDdDSHSSt5oPlsX2/en')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/artist/5ar4zFgUQG1RsH8nhmjOeM/en')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/artist/4kubsO16bEfCADaVUyoYb6/en')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/artist/7wg1qvie3KqDNQbAkTdbX0/en')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/artist/28yVvEvA2lT3K5RNIhV1Dj/en')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/artist/3S4d3YRNGg2OhnNm3QvfhA/en')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/artist/41JNAYVuPs7zwJbQBQ6tec/en')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/artist/30FDJPN3RtwJZ20g5YGCRX/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seeded-session-images.scdn.co/v2/img/540/r/track/4n0sVfRnd0UJsqcbPj7GqN/en')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/artist/7nJNuftnqwrFGFs3ZRRe0u/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/artist/6nxWCVXbOlEVRexSbLsTer/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: ('https://i.scdn.co/image/ab67616d00001e02ea7caaff71dea1051d49b2fe')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: heading
+    icon: mdi:spotify
+    heading_style: title
+    heading: Mixes
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/upbeat/6O4EGCCb6DoIiR6B1QCQgp/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/chill/4AA8eXtzqh5ykxtafLaPOi/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/happy/6mpyU2azr3zfZDY9k8w5GP/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/moody/1eMmoIprPDWeFdB1FxU6ZV/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/romantic/19ra5tSw0tWufvUp8GotLo/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/twenty_tens/25oLRSUjJk4YHNUsQXk7Ut/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/seventies/4QQgXkCYTt3BlENzhyNETg/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/two_thousands/1GbrJTB56Xs4XQGlmVbaCf/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/sixties/22WZ7M8sxp5THdruNY3gXt/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://seed-mix-image.spotifycdn.com/v6/img/nineties/5spEJXLwD1sKUdC2bnOHPg/en/default')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: heading
+    icon: mdi:spotify
+    heading: Playlists
+    heading_style: title
+    layout_options:
+      grid_columns: full
+      grid_rows: 1
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8449a71ea91884a8a15a16e945')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://mosaic.scdn.co/300/ab67616d00001e02b16108afdbe9285b9eaa00e7ab67616d00001e02c00500b8e679687c61a898d7ab67616d00001e02cee21409eccfc4dc8c8793e1ab67616d00001e02f30248edd69e211c1e66d300')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
+  - type: custom:config-template-card
+    variables:
+      DEVICE: states['input_select.music_broadcast_select'].state
+      PLAYLIST: ('spotify://playlist/*****')
+      ALBUM_ART: >-
+        ('https://mosaic.scdn.co/300/ab67616d00001e02b16108afdbe9285b9eaa00e7ab67616d00001e02c00500b8e679687c61a898d7ab67616d00001e02cee21409eccfc4dc8c8793e1ab67616d00001e02f30248edd69e211c1e66d300')
+    entities:
+      - input_select.music_broadcast_select
+    card:
+      type: picture
+      image: ${ ALBUM_ART }
+      tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          radio_mode: true
+      double_tap_action:
+        action: call-service
+        perform_action: mass.play_media
+        target:
+          entity_id: ${ DEVICE }
+        data:
+          media_type: playlist
+          media_id: ${ PLAYLIST }
+          enqueue: add
+    layout_options:
+      grid_columns: 1
+      grid_rows: 1.8
