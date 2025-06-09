@@ -1,0 +1,36 @@
+type: custom:config-template-card
+variables:
+  MEDIA_DEVICE: states['media_player.bedroom_chromecast_tv']
+  REMOTE_DEVICE: states['remote.bedroom_chromecast_tv_remote']
+entities:
+  - ${MEDIA_DEVICE}
+  - ${REMOTE_DEVICE}
+card:
+  type: markdown
+  content: |-
+    ${
+      "# config-template-card Examples: " + "\n" +
+      "**MEDIA_DEVICE:** " + MEDIA_DEVICE 
+      + "\n" + 
+      "**REMOTE_DEVICE:** " + REMOTE_DEVICE
+      + "\n" + "\n" +
+      "**MEDIA_DEVICE.entity_ID:** \n " + MEDIA_DEVICE.entity_id
+      + "\n" + 
+      "**REMOTE_DEVICE.entity_ID:** " + REMOTE_DEVICE.entity_id
+      + "\n" + "\n" +
+      "**MEDIA_DEVICE.state:** " + MEDIA_DEVICE.state
+      + "\n" + 
+      "**REMOTE_DEVICE.state:** " + REMOTE_DEVICE.state
+      + "\n" +  "\n" + 
+      "**MEDIA_DEVICE.attributes.friendly_name:** " + MEDIA_DEVICE.attributes.friendly_name
+      + "\n" + 
+      "**REMOTE_DEVICE.state.attributes.friendly_name:** " + REMOTE_DEVICE.attributes.friendly_name
+      + "\n" +  "\n" + 
+      "## Ternary Operation"
+      + "\n" + 
+      "The REMOTE_DEVICE is currently " +  
+      (REMOTE_DEVICE.state === 'on' ? '**ON, definitely ON**' : '**OFF, apparently...** (And yes, the stars are to make it bold)') 
+      + "\n" + "\n" + 
+      "And a nested ternary: " +  
+      (REMOTE_DEVICE.state != 'off' ? REMOTE_DEVICE.state === 'playing' ? 'Playing. >' : 'On >' : 'Off >')
+    }
