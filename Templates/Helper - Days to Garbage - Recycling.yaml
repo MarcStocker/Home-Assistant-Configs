@@ -1,0 +1,11 @@
+{% set event = state_attr('calendar.garbage_collection', 'message') %}
+{% set start = state_attr('calendar.garbage_collection', 'start_time') %}
+{% if event == 'Garbage Collection - Recycling' and start %}
+  {% set dt = as_datetime(start) %}
+  {% set days = (dt.date() - now().date()).days %}
+  {{ days | int  }}
+{% else %} 
+  # Green Waste is next. So add 7 days to it to calculate the next Recycling Day.
+  {% set greenwaste = states('number.days_to_garbage_green_waste') | int %}
+  {{ greenwaste + 7 }}
+{% endif %}
