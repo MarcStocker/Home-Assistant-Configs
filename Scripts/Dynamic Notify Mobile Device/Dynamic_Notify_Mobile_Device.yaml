@@ -1,190 +1,215 @@
 sequence:
-  - variables:
-      watch_notification_data: |-
-        {% set notification = namespace(data={}) %}  
-        {% set additional = namespace(data={}) %}  
-
-        {% if title %}
-          {% set notification.data = dict(notification.data, **{ 'title': title }) %}
-        {% endif %}
-        {% if message %}
-          {% set notification.data = dict(notification.data, **{ 'message': message }) %}
-        {% endif %}
-
-        {% if tag %}
-          {% set additional.data = dict(additional.data, **{ 'tag': tag }) %}
-        {% endif %}
-        {% if channel %}
-          {% set additional.data = dict(additional.data, **{ 'channel': channel }) %}
-        {% endif %}
-
-        {% if notification_icon %}
-          {% set additional.data = dict(additional.data, **{ 'notification_icon': notification_icon }) %}
-        {% endif %}
-        {% if notification_color %}
-          {% set hex_color = '#%02x%02x%02x' | format(notification_color[0], notification_color[1], notification_color[2]) %}
-          {% set additional.data = dict(additional.data, **{ 'color': hex_color }) %}
-        {% endif %}
-        {% if image_icon %}
-          {% set additional.data = dict(additional.data, **{ 'icon_url': image_icon }) %}
-        {% endif %}
-        {% if additional.data %}
-          {% set notification.data = dict(notification.data, **{ 'data': additional.data }) %}
-        {% endif %}
-
-        {{ notification.data }}
-      mobile_notification_data: >-
-        {% set notification = namespace(data={}) %}   
-        {% set additional   = namespace(data={}) %}   {% set push = namespace(data={}) %}   
-        {% set actions = [] %}
-
-        {% if title %}
-          {% set notification.data = dict(notification.data, **{ 'title': title }) %}
-        {% endif %} 
-        {% if message %}
-          {% set notification.data = dict(notification.data, **{ 'message': message }) %}
-        {% endif %}
-
-        {% if notification_icon %}
-          {% set additional.data = dict(additional.data, **{ 'notification_icon': notification_icon }) %}
-        {% endif %} 
-        {% if notification_color %}
-          {% set hex_color = '#%02x%02x%02x' | format(notification_color[0], notification_color[1], notification_color[2]) %}
-          {% set additional.data = dict(additional.data, **{ 'color': hex_color }) %}
-        {% endif %} 
-        {% if image_icon %}
-          {% set additional.data = dict(additional.data, **{ 'icon_url': image_icon }) %}
-        {% endif %} 
-        {% if image %}
-          {% set additional.data = dict(additional.data, **{ 'image': image }) %}
-        {% endif %}
-
-
-        {% if tag %}
-          {% set additional.data = dict(additional.data, **{ 'tag': tag }) %}
-        {% endif %} 
-        {% if channel %}
-          {% set additional.data = dict(additional.data, **{ 'channel': channel }) %}
-        {% endif %} 
-        {% if group %}
-          {% set additional.data = dict(additional.data, **{ 'group': group }) %}
-        {% endif %}
-
-        {% if url_when_clicked %}
-          {% set additional.data = dict(additional.data, **{ 'url': url_when_clicked }) %}
-          {% set additional.data = dict(additional.data, **{ 'clickAction': url_when_clicked }) %}
-        {% endif %}
-
-        {% if sticky %}
-          {% set additional.data = dict(additional.data, **{ 'sticky': sticky }) %}
-        {% endif %} 
-        {% if persistent %}
-          {% set additional.data = dict(additional.data, **{ 'persistent': persistent }) %}
-        {% endif %}
-
-        {% if android_auto_ui %}
-          {% set additional.data = dict(additional.data, **{ 'car_ui': android_auto_ui }) %}
-        {% endif %}
-
-
-        {% if timeout %}
-          {% set additional.data = dict(additional.data, **{ 'timeout': timeout }) %}
-        {% endif %}
-
-        {% if progress %}
-          {% set additional.data = dict(additional.data, **{ 'progress': progress }) %}
-          {% set additional.data = dict(additional.data, **{ 'progress_max': progress_max | default(100) }) %}
-        {% endif %} 
-        {% if progress_indeterminate %}
-          {% set additional.data = dict(additional.data, **{ 'progress': 1 }) %}
-          {% set additional.data = dict(additional.data, **{ 'progress_indeterminate': progress_indeterminate }) %}
-        {% endif %}
-
-        {% if chronometer %}
-          {% set additional.data = dict(additional.data, **{ 'chronometer': 'true' }) %}
-          {% set additional.data = dict(additional.data, **{ 'when': chronometer }) %}
-          {% set additional.data = dict(additional.data, **{ 'when_relative': 'false' if chronometer_relative == False else 'true' }) %}
-        {% endif %}
-
-        {% if enable_tts == true %}
-          {% set notification.data = dict(notification.data, **{ 'message': "TTS" }) %}
-          {% set additional.data = dict(additional.data, **{ 'tts_text': message }) %}
-          {% set additional.data = dict(additional.data, **{ 'media_stream': media_stream | default("Default") }) %}
-        {% elif clear_notification == true %}
-          {% set notification.data = dict(notification.data, **{ 'message': "clear_notification" }) %}
-        {% endif %}
-
-        {% if interruption_level %} # iOS Only
-          {% set push.data = dict(push.data, **{ 'interruption-level': interruption_level }) %}
-        {% endif %}
-
-        {% if sound %} # iOS Only
-          {% set push.data = dict(push.data, **{ 'sound': sound }) %}
-        {% endif %}
-
-
-        {% if action_1_action or action_1_custom_action or action_1_title or action_1_uri %}
-          {% set action = dict() %}
-          {% if action_1_action or action_1_custom_action %}
-            {% set action = dict(action, **{ 'action': action_1_custom_action if action_1_custom_action else action_1_action }) %}
-          {% endif %}
-          {% if action_1_title %}
-            {% set action = dict(action, **{ 'title': action_1_title }) %}
-          {% endif %}  
-          {% if action_1_uri %}
-            {% set action = dict(action, **{ 'uri': action_1_uri }) %}
-          {% endif %}
-          {% set actions = actions + [action] %}
-        {% endif %}  
-        {% if action_2_action or action_2_custom_action or action_2_title or action_2_uri %}
-          {% set action = dict() %}
-          {% if action_2_action or action_2_custom_action %}
-            {% set action = dict(action, **{ 'action': action_2_custom_action if action_2_custom_action else action_2_action }) %}
-          {% endif %}
-          {% if action_2_title %}
-            {% set action = dict(action, **{ 'title': action_2_title }) %}
-          {% endif %}
-          {% if action_2_uri %}
-            {% set action = dict(action, **{ 'uri': action_2_uri }) %}
-          {% endif %}
-          {% set actions = actions + [action] %}
-        {% endif %} 
-        {% if action_3_action or action_3_custom_action or action_3_title or action_3_uri %}
-          {% set action = dict() %}
-          {% if action_3_action or action_3_custom_action %}
-            {% set action = dict(action, **{ 'action': action_3_custom_action if action_3_custom_action else action_3_action }) %}
-          {% endif %}
-          {% if action_3_title %}
-            {% set action = dict(action, **{ 'title': action_3_title }) %}
-          {% endif %}
-          {% if action_3_uri %}
-            {% set action = dict(action, **{ 'uri': action_3_uri }) %}
-          {% endif %}
-          {% set actions = actions + [action] %}
-        {% endif %} 
-        {% if actions %}
-          {% set additional.data = dict(additional.data, **{ 'actions': actions }) %}
-        {% endif %}
-
-        {% set additional.data = dict(additional.data, **{ 'priority': "high" }) %} 
-        {% set additional.data = dict(additional.data, **{ 'ttl': 0 }) %}
-
-        {% if command %}
-          {% set additional.data = dict(additional.data, **{ 'command': message }) %}
-          {% set notification.data = dict(notification.data, **{ 'message': command }) %}
-        {% endif %} 
-        {% if push.data %} # iOS Only
-          {% set additional.data = dict(additional.data, **{ 'push': push.data }) %}
-        {% endif %}
-
-        {% if additional.data %}
-          {% set notification.data = dict(notification.data, **{ 'data': additional.data }) %}
-        {% endif %}
-
-        {{ notification.data }}
   - alias: Repeat for all select Mobile Devices
     repeat:
       sequence:
+        - variables:
+            watch_notification_data: |-
+              {% set notification = namespace(data={}) %}  
+              {% set additional = namespace(data={}) %}  
+
+              {% if title %}
+                {% set notification.data = dict(notification.data, **{ 'title': title }) %}
+              {% endif %}
+              {% if message %}
+                {% set notification.data = dict(notification.data, **{ 'message': message }) %}
+              {% endif %}
+
+              {% if tag %}
+                {% set additional.data = dict(additional.data, **{ 'tag': tag }) %}
+              {% endif %}
+              {% if channel %}
+                {% set additional.data = dict(additional.data, **{ 'channel': channel }) %}
+              {% endif %}
+
+              {% if notification_icon %}
+                {% set additional.data = dict(additional.data, **{ 'notification_icon': notification_icon }) %}
+              {% endif %}
+              {% if notification_color %}
+                {% set hex_color = '#%02x%02x%02x' | format(notification_color[0], notification_color[1], notification_color[2]) %}
+                {% set additional.data = dict(additional.data, **{ 'color': hex_color }) %}
+              {% endif %}
+              {% if image_icon %}
+                {% set additional.data = dict(additional.data, **{ 'icon_url': image_icon }) %}
+              {% endif %}
+              {% if additional.data %}
+                {% set notification.data = dict(notification.data, **{ 'data': additional.data }) %}
+              {% endif %}
+
+              {{ notification.data }}
+            mobile_notification_data: >-
+              {% set notification = namespace(data={}) %}     
+              {% set additional = namespace(data={}) %}     
+              {% set push = namespace(data={}) %}     
+              {% set actions = [] %}  
+              {% set currentDevice = repeat.item %} {% set phoneType = device_attr(currentDevice, 'manufacturer') %} # "Apple" == iOS Otherwise, Android
+
+              # 🤖 ANDROID ONLY ITEMS!
+              {% if phoneType != "Apple" %}
+                {% if channel %}
+                  {% set additional.data = dict(additional.data, **{ 'channel': channel }) %}
+                {% endif %} 
+                
+                {% if notification_icon %}
+                  {% set additional.data = dict(additional.data, **{ 'notification_icon': notification_icon }) %}
+                {% endif %} 
+                {% if notification_color %}
+                  {% set hex_color = '#%02x%02x%02x' | format(notification_color[0], notification_color[1], notification_color[2]) %}
+                  {% set additional.data = dict(additional.data, **{ 'color': hex_color }) %}
+                {% endif %} 
+                {% if image_icon %}
+                  {% set additional.data = dict(additional.data, **{ 'icon_url': image_icon }) %}
+                {% endif %} 
+                {% if image %}
+                  {% set additional.data = dict(additional.data, **{ 'image': image }) %}
+                {% endif %}
+                
+                {% if enable_tts == true %}
+                  {% set notification.data = dict(notification.data, **{ 'message': "TTS" }) %}
+                  {% set additional.data = dict(additional.data, **{ 'tts_text': message }) %}
+                  {% set additional.data = dict(additional.data, **{ 'media_stream': media_stream | default("Default") }) %}
+                {% endif %}
+                
+                {% if sticky %}
+                  {% set additional.data = dict(additional.data, **{ 'sticky': sticky }) %}
+                {% endif %} 
+                {% if persistent %}
+                  {% set additional.data = dict(additional.data, **{ 'persistent': persistent }) %}
+                {% endif %}
+                
+                {% if timeout %}
+                  {% set additional.data = dict(additional.data, **{ 'timeout': timeout }) %}
+                {% endif %}
+
+                {% if progress %}
+                  {% set additional.data = dict(additional.data, **{ 'progress': progress }) %}
+                  {% set additional.data = dict(additional.data, **{ 'progress_max': progress_max | default(100) }) %}
+                {% endif %} 
+                {% if progress_indeterminate %}
+                  {% set additional.data = dict(additional.data, **{ 'progress': 1 }) %}
+                  {% set additional.data = dict(additional.data, **{ 'progress_indeterminate': progress_indeterminate }) %}
+                {% endif %}
+
+                {% if chronometer or chronometer_variable %}
+                  {% set additional.data = dict(additional.data, **{ 'chronometer': 'true' }) %}
+                  {% if chronometer_variable %}
+                    {% set additional.data = dict(additional.data, **{ 'when': chronometer_variable | int }) %}
+                  {% else %}
+                    {% set additional.data = dict(additional.data, **{ 'when': chronometer }) %}
+                  {% endif %}
+                  {% set additional.data = dict(additional.data, **{ 'when_relative': 'false' if chronometer_relative == False else 'true' }) %}
+                {% endif %}
+
+                
+                {% if android_auto_ui %}
+                  {% set additional.data = dict(additional.data, **{ 'car_ui': android_auto_ui }) %}
+                {% endif %}
+              {% endif %} # 🤖 END ANDROID
+
+              # 🍎 Apple iOS ONLY {% if phoneType == "Apple" %}
+                {% if interruption_level %} # 🍎 iOS Only
+                  {% set push.data = dict(push.data, **{ 'interruption-level': interruption_level }) %}
+                {% endif %}
+                
+                {% if sound %} # 🍎 iOS Only
+                  {% set push.data = dict(push.data, **{ 'sound': sound }) %}
+                {% endif %}
+                
+                {% if push.data %} # 🍎 iOS Only
+                  {% set additional.data = dict(additional.data, **{ 'push': push.data }) %}
+                {% endif %}
+              {% endif %} # 🍎 END APPLE
+
+
+              # 🌎 UNIVERSAL ITEMS! 
+              {% if title %}
+                {% set notification.data = dict(notification.data, **{ 'title': title }) %}
+              {% endif %}  
+              {% if message %}
+                {% set notification.data = dict(notification.data, **{ 'message': message }) %}
+              {% endif %}
+
+              {% if tag %}
+                {% set additional.data = dict(additional.data, **{ 'tag': tag }) %}
+              {% endif %}  {% if group %}
+                {% set additional.data = dict(additional.data, **{ 'group': group }) %}
+              {% endif %}
+
+              {% if url_when_clicked %}
+                {% set additional.data = dict(additional.data, **{ 'url': url_when_clicked }) %}
+                {% set additional.data = dict(additional.data, **{ 'clickAction': url_when_clicked }) %}
+              {% endif %}
+
+              {% if clear_notification == true %}
+                {% set notification.data = dict(notification.data, **{ 'message': "clear_notification" }) %}
+              {% endif %}
+
+              {% set additional.data = dict(additional.data, **{ 'priority': "high" }) %} 
+              {% set additional.data = dict(additional.data, **{ 'ttl': 0 }) %}
+
+              # ACTIONS 
+              {% if action_1_action or action_1_custom_action or action_1_title or action_1_uri %}
+                {% set action = dict() %}
+                {% if action_1_action or action_1_custom_action %}{% set action = dict(action, **{ 'action': (action_1_custom_action if action_1_custom_action else ('CALL' if (phoneType == 'Apple' and action_1_action == 'CALL') else ('URI' if action_1_action == 'CALL' else action_1_action)) ) }) %}{% endif %}
+                {% if action_1_title %}{% set action = dict(action, **{ 'title': action_1_title }) %}{% endif %}
+                {% if action_1_uri %}{% set action = dict(action, **{ 'uri': ('tel:' ~ action_1_uri|regex_replace('[^0-9]', '') if phoneType == 'Apple' and action_1_action == 'CALL' else ('deep-link://tel:' ~ action_1_uri|regex_replace('[^0-9]', '') if action_1_action == 'CALL' else action_1_uri) ) }) %}{% endif %}
+                
+                {% if phoneType == "Apple" %}
+                  {% if action_1_icon %}{% set action = dict(action, **{ 'icon': action_1_icon }) %}{% endif %}
+                  {% if action_1_destructive %}{% set action = dict(action, **{ 'destructive': action_1_destructive }) %}{% endif %}
+                  {% if action_1_textinputbuttontitle %}{% set action = dict(action, **{ 'textInputButtonTitle': action_1_textinputbuttontitle }) %}{% endif %}
+                  {% if action_1_textinputplaceholder %}{% set action = dict(action, **{ 'textInputPlaceholder': action_1_textinputplaceholder }) %}{% endif %}
+                  {% if action_1_authenticationRequired %}{% set action = dict(action, **{ 'authenticationRequired': action_1_authenticationRequired }) %}{% endif %}
+                {% endif %}  
+                {% set actions = actions + [action] %}
+              {% endif %}   
+              
+              {% if action_2_action or action_2_custom_action or action_2_title or action_2_uri %}
+                {% set action = dict() %}
+                {% if action_2_action or action_2_custom_action %}{% set action = dict(action, **{ 'action': (action_2_custom_action if action_2_custom_action else ('CALL' if (phoneType == 'Apple' and action_2_action == 'CALL') else ('URI' if action_2_action == 'CALL' else action_2_action)) ) }) %}{% endif %}
+                {% if action_2_title %}{% set action = dict(action, **{ 'title': action_2_title }) %}{% endif %}
+                {% if action_2_uri %}{% set action = dict(action, **{ 'uri': ('tel:' ~ action_2_uri|regex_replace('[^0-9]', '') if phoneType == 'Apple' and action_2_action == 'CALL' else ('deep-link://tel:' ~ action_2_uri|regex_replace('[^0-9]', '') if action_2_action == 'CALL' else action_2_uri) ) }) %}{% endif %}
+
+                {% if phoneType == "Apple" %}
+                  {% if action_2_icon %}{% set action = dict(action, **{ 'icon': action_2_icon }) %}{% endif %}          
+                  {% if action_2_destructive %}{% set action = dict(action, **{ 'destructive': action_2_destructive }) %}{% endif %}
+                  {% if action_2_textinputbuttontitle %}{% set action = dict(action, **{ 'textInputButtonTitle': action_2_textinputbuttontitle }) %}{% endif %}
+                  {% if action_2_textinputplaceholder %}{% set action = dict(action, **{ 'textInputPlaceholder': action_2_textinputplaceholder }) %}{% endif %}
+                  {% if action_2_authenticationRequired %}{% set action = dict(action, **{ 'authenticationRequired': action_2_authenticationRequired }) %}{% endif %}
+                {% endif %}  
+                {% set actions = actions + [action] %}
+              {% endif %}   
+              
+              {% if action_3_action or action_3_custom_action or action_3_title or action_3_uri %}
+                {% set action = dict() %}
+                {% if action_3_action or action_3_custom_action %}{% set action = dict(action, **{ 'action': (action_3_custom_action if action_3_custom_action else ('CALL' if (phoneType == 'Apple' and action_3_action == 'CALL') else ('URI' if action_3_action == 'CALL' else action_3_action)) ) }) %}{% endif %}
+                {% if action_3_title %}{% set action = dict(action, **{ 'title': action_3_title }) %}{% endif %}
+                {% if action_3_uri %}{% set action = dict(action, **{ 'uri': ('tel:' ~ action_3_uri|regex_replace('[^0-9]', '') if phoneType == 'Apple' and action_3_action == 'CALL' else ('deep-link://tel:' ~ action_3_uri|regex_replace('[^0-9]', '') if action_3_action == 'CALL' else action_3_uri) ) }) %}{% endif %}
+                
+                {% if phoneType == "Apple" %}
+                  {% if action_3_icon %}{% set action = dict(action, **{ 'icon': action_3_icon }) %}{% endif %}
+                  {% if action_3_destructive %}{% set action = dict(action, **{ 'destructive': action_3_destructive }) %}{% endif %}
+                  {% if action_3_textinputbuttontitle %}{% set action = dict(action, **{ 'textInputButtonTitle': action_3_textinputbuttontitle }) %}{% endif %}
+                  {% if action_3_textinputplaceholder %}{% set action = dict(action, **{ 'textInputPlaceholder': action_3_textinputplaceholder }) %}{% endif %}
+                  {% if action_3_authenticationRequired %}{% set action = dict(action, **{ 'authenticationRequired': action_3_authenticationRequired }) %}{% endif %}
+                {% endif %} 
+                {% set actions = actions + [action] %}
+              {% endif %} 
+
+              {% if actions %}
+                {% set additional.data = dict(additional.data, **{ 'actions': actions }) %}
+              {% endif %}
+
+
+              {% if command %}
+                {% set additional.data = dict(additional.data, **{ 'command': message }) %}
+                {% set notification.data = dict(notification.data, **{ 'message': command }) %}
+              {% endif %} 
+
+              {% if additional.data %}
+                {% set notification.data = dict(notification.data, **{ 'data': additional.data }) %}
+              {% endif %}
+
+              {{ notification.data }}
         - data:
             message: "{{ message }}"
             title: "{{ title }}"
@@ -212,9 +237,7 @@ sequence:
                 {{ persistent }}
               notification_icon: "{{ notification_icon }}"
               color: >-
-                #{{ '%02x%02x%02x' |
-                format(notification_color[0],notification_color[1],notification_color[2])
-                }}
+                #{{ '%02x%02x%02x' | format(notification_color[0],notification_color[1],notification_color[2]) }}
               icon_url: "{{ image_icon }}"
               timeout: |
                 {{ timeout }}
@@ -249,15 +272,12 @@ sequence:
             - alias: If NOT a watch
               condition: template
               value_template: >-
-                {% set comment = "Notifications to WearOS don't seem to work
-                properly if too many/the wrong parameters are sent" %}
+                {% set comment = "Notifications to WearOS don't seem to work properly if too many/the wrong parameters are sent" %}
 
-                {% set comment = "This is what works for my TicWatch5 to
-                separate it from a standard mobile notification" %}
+                {% set comment = "This is what works for my TicWatch5 to separate it from a standard mobile notification" %}
 
 
-                {% set MobileDeviceModel = device_attr(repeat.item, 'model') |
-                lower %}
+                {% set MobileDeviceModel = device_attr(repeat.item, 'model') | lower %}
 
                 {% if "watch" in MobileDeviceModel %}
 
@@ -271,14 +291,12 @@ sequence:
           then:
             - data: "{{ mobile_notification_data }}"
               action: >
-                notify.mobile_app_{{ device_attr(repeat.item, "name") |
-                slugify}}
+                notify.mobile_app_{{ device_attr(repeat.item, "name") | slugify}}
               alias: Phone Notification
           else:
             - data: "{{ watch_notification_data }}"
               action: >
-                notify.mobile_app_{{ device_attr(repeat.item, "name") |
-                slugify}}
+                notify.mobile_app_{{ device_attr(repeat.item, "name") | slugify}}
               alias: Wear OS Notification
       for_each: "{{ phone_device_id }}"
 alias: Dynamic Notify Mobile Device
@@ -288,22 +306,22 @@ fields:
       device:
         integration: mobile_app
         multiple: true
-    name: Phone Device ID
+    name: 📲 Phone Device ID
     description: Mobile phone to notify
     required: true
     default: []
   notification_icon:
     selector:
       icon: {}
-    name: Notification Icon
-    description: Notification Status Bar Icon
+    name: 🧿 Notification Icon
+    description: 🤖 Notification Status Bar Icon
     default: mdi:home-assistant
     required: false
   notification_color:
     selector:
       color_rgb: {}
-    name: Notification Color
-    description: Icon Color
+    name: 🎨 Notification Color
+    description: 🤖 Icon Color
     default:
       - 24
       - 188
@@ -312,22 +330,22 @@ fields:
   title:
     selector:
       text: null
-    name: Title
+    name: 🏷️ Title
     description: Notification Title ("Home Assistant" results in no title).
   message:
     selector:
       text:
         multiline: true
-    name: Message
-    required: false
+    name: 💬 Message
+    required: true
     description: Notification Message
+    default: Message
   enable_tts:
     selector:
       boolean: {}
-    name: Enable TTS?
+    name: 🔊 Enable TTS?
     description: >-
-      If enabled, the Message will be played audibly using TTS (No visible notification will be sent to device) 
-      [Will override "CLEAR NOTIFICATION"].
+      🤖 If enabled, the Message will be played audibly using TTS (No visible notification will be sent to device)  [Will override "CLEAR NOTIFICATION"].
   media_stream:
     selector:
       select:
@@ -338,25 +356,22 @@ fields:
             value: alarm_stream
           - label: 100% Volume (MAX VOLUME 💯🔊📢)
             value: alarm_stream_max
-    name: Media Stream (TTS Volume)
+    name: 🎚️ Media Stream (TTS Volume)
     description: >-
-      Default = Music Volume 
-      ------ 
-      Alarm_Stream = Alarm Volumee 
-      ------ 
+      🤖 Default = Music Volume  ------  Alarm_Stream = Alarm Volumee  ------ 
       Max = 100% volume
     default: Default
   url_when_clicked:
     selector:
       text: null
-    name: URL when Clicked
+    name: 🔗 URL when Clicked
     description: >-
       For dashboards, use "/lovelace-mobile/cameras" for "http://homeassistant.loca:8123/lovelace-mobile/cameras"
     default: /lovelace-mobile/0
   image_icon:
     selector:
       text: null
-    name: Image Icon
+    name: 🖼️ Image Icon
     description: >-
       Kind of like an Image, but shown when notification is folded. Use external URL or local relative path (i.e. /local/icon/icon.png).
     default: >-
@@ -364,9 +379,18 @@ fields:
   image:
     selector:
       text: null
-    name: Image
+    name: 🖼️ Image
     description: >-
-      Must be a static img, GIFs do not work. External URL or local relative path (i.e. /local/icon/icon.png).
+      Must be a static img, GIFs do not work. External URL or local relative
+      path (i.e. /local/icon/icon.png).
+  tag:
+    selector:
+      text: null
+    name: 🆔 Tag
+    description: >-
+      Unique Notification ID. Use to update a notification instead of sending
+      multiple. Can also be used in case you want to dismiss the notification
+      later with 'clear_notification'.
   channel:
     selector:
       select:
@@ -387,204 +411,114 @@ fields:
             value: alarm_stream
           - label: 🧪 Test
             value: Test
-    name: Channel
+    name: 🗂️ Channel
     description: >-
-      "Categories". Easily allows settings different notification sounds, etc, based on notification type (Alarm vs Security vs Appliance notification) on Android [You can add more, these are just my defaults]
+      🤖 "Categories". Easily allows settings different notification sounds,
+      etc, based on notification type (Alarm vs Security vs Appliance
+      notification) on Android [You can add more, these are just my defaults]
     required: false
   group:
     selector:
       text: null
-    name: Group
-    description: Combine notifications together visually if there's many.
-  tag:
-    selector:
-      text: null
-    name: Tag
+    name: 🗃️ Group
     description: >-
-      Unique Notification ID. Use to update a notification instead of sending multiple. Can also be used in case you want to dismiss the notification later with 'clear_notification'.
+      Combine notifications together visually if there's many.  --- 🤖 Do not
+      use the same tag in a different group to avoid unexpected behavior.
   clear_notification:
     selector:
       boolean: {}
-    name: Clear Notification
+    name: ❌ Clear Notification
     description: Dismiss the notification with the specified "Tag".
   sticky:
     selector:
       boolean: {}
-    name: Sticky
+    name: 📌 Sticky
     description: >-
-      Sticky Notifications. Selecting it will not dismiss it. It must be swipped to be dismissed. 
+      🤖 Sticky Notifications. Selecting it will not dismiss it. It must be
+      swipped to be dismissed. 
   persistent:
     selector:
       boolean: {}
-    name: Persistent
+    name: 🧱 Persistent
     description: >-
-      Persistent Notification. CANNOT be swiped away. Must use tag. Use Dismiss + tag to clear. 
-      (Can be dismissed by clicking. Use 'Sticky' to avoid this)
-  notification_actions:
-    selector:
-      text:
-        multiline: true
-    name: Notification Actions
-    default: |2
-        - action: URI
-          title: 📸 Cameras
-          uri: /lovelace-mobile/cameras
-        - action: URI
-          title: 🔊 Ring
-          uri: app://com.ringapp
-          title: 📸 Cameras
-          uri: /lovelace-mobile/cameras
-
-
-          - action: URI
-            title: 🔄 Backups
-            uri: /hassio/backups
-          - action: URI
-            title: 🏠 Blog
-            uri: https://www.home-assistant.io/latest-release-notes/
-          - action: URI
-            title: ℹ️ HA Info
-            uri: /config/info
-    description: "Define clickable actions. You can define up to 3 for Android. "
-  action_1_action:
-    selector:
-      select:
-        options:
-          - label: >-
-              URI     - Open app, HA dash, entity, system settings, etc (ie.
-              uri: 'app://com.twitter.android')
-            value: URI
-          - label: OPEN    - Open a URL in a browser
-            value: OPEN
-          - label: REPLY   - (Allow user to send text as a reply)
-            value: REPLY
-          - label: "CALL   - Dial a number (ie. uri: 'tel:2125551212')"
-            value: CALL
-          - label: Alarm   - (¯\_(ツ)_/¯ idk what it does)
-            value: ALARM
-          - label: Silence - (¯\_(ツ)_/¯ idk what it does)
-            value: SILENCE
-    name: Action 1 action
-  action_1_custom_action:
-    selector:
-      text: null
-    name: "Action 1: Custom Action"
-  action_1_title:
-    selector:
-      text: null
-    name: Action 1 Title
-  action_1_uri:
-    selector:
-      text: null
-    name: Action 1 URI
-  action_2_action:
-    selector:
-      select:
-        options:
-          - URI
-          - ALARM
-          - REPLY
-          - SILENCE
-          - CALL
-          - OPEN
-    name: Action 2 action
-  action_2_custom_action:
-    selector:
-      text: null
-    name: "Action 2: Custom Action"
-  action_2_title:
-    selector:
-      text: null
-    name: Action 2 Title
-  action_2_uri:
-    selector:
-      text: null
-    name: Action 2 URI
-  action_3_action:
-    selector:
-      select:
-        options:
-          - URI
-          - ALARM
-          - REPLY
-          - SILENCE
-          - CALL
-          - OPEN
-    name: Action 3 action
-  action_3_custom_action:
-    selector:
-      text: null
-    name: "Action 3: Custom Action"
-  action_3_title:
-    selector:
-      text: null
-    name: Action 3 Title
-  action_3_uri:
-    selector:
-      text: null
-    name: Action 3 URI
+      🤖 Persistent Notification. CANNOT be swiped away. Must use tag. Use
+      Dismiss + tag to clear.  (Can be dismissed by clicking. Use 'Sticky' to
+      avoid this)
   android_auto_ui:
     selector:
       boolean: {}
-    name: Android Auto UI
-    description: Whether or not the notification should show up in Android Auto
+    name: 🚘 Android Auto UI
+    description: 🤖 Whether or not the notification should show up in Android Auto
     required: true
     default: true
   command:
     selector:
       text: null
-    name: Command
+    name: 🧾 Command
     description: >-
-      For issuing commands, like opening Home Assistant to a specific page. Define the 'command' here, and any supporting data in "Message". 
-      (IE. To open HA to a specific dashboard. Command="command_webview" and Message="lovelace-mobile/garage")
-  subject:
+      For issuing commands, like opening Home Assistant to a specific page.
+      Define the 'command' here, and any supporting data in "Message".  (IE. To
+      open HA to a specific dashboard. Command="command_webview" and
+      Message="lovelace-mobile/garage")
+  subtitle_subject:
     selector:
       text: null
-    name: Subject
-    description: A sub-title
+    name: 📰 Subtitle/Subject
+    description: >-
+      🤖 Might replace text --- 🍎Shows in addition to Title and Message |
+      [Docs](https://companion.home-assistant.io/docs/notifications/notifications-basic#subtitle--subject)
   timeout:
     selector:
       number:
         min: 1
         max: 100000
         step: 1
-    name: Timeout
-    description: How long before the notification is automatically dismissed
-  progress:
+    name: ⏱️ Timeout
+    description: 🤖 How long before the notification is automatically dismissed
+  progress_bar_value:
     selector:
       number:
         min: 1
         max: 100
         step: 1
-    name: Progress
-    description: Current value of the progress bar
+    name: 📊 Progress Bar Value
+    description: 🤖 ▓▓▓░░░░░░ – represents the current progress toward 💯 Progress Max
   progress_max:
     selector:
       number:
         min: 10
         max: 100
         step: 1
-    name: Progress Max
-    description: Progress bar's 100% value (Defaults to 100 if not defined).
+    name: 💯 Progress Max
+    description: 🤖 ▓▓▓▓▓▓▓▓▓ - Progress bar's 100% value (Defaults to 100 if not defined).
   progress_indeterminate:
     selector:
       boolean: {}
-    name: Progress_indeterminate
+    name: 🔄 Progress_indeterminate
     description: >-
-      Overrides "Progress" bar, but "Progress" and "Progress Max" must still be set. Creates an animated "Loading"/"In Progress" progress bar
+      🤖 Creates an animated "Loading"/"In Progress" progress bar (Overrides
+      "Progress" bar, but "Progress" and "Progress Max" must still be set)
   chronometer:
     selector:
       number:
         min: 1
         max: 10000000
-    name: Chronometer
+    name: ⏳ Chronometer
     description: >-
-      Real time count down. Value is in Seconds by default (unless Chronometer Relative is set to False).
+      🤖 Real time count down. Value is in Seconds by default (unless
+      Chronometer Relative is set to False).
+  chronometer_variable:
+    selector:
+      text: null
+    name: 🧮 Chronometer (Template Values)
+    description: >-
+      🤖 If you want to use a template variable instead of a raw number (ie {{
+      template_sensor}} ). This will replace the "⏳ Chronometer" option.
   chronometer_relative:
     selector:
       boolean: {}
-    name: Chronometer Relative
-    description: "If true, value is in seconds. If false, value is in epoch time."
+    name: 🕰 Chronometer Relative
+    description: 🤖 If true, value is in seconds. If false, value is in epoch time.
     default: false
   interruption_level:
     selector:
@@ -600,20 +534,227 @@ fields:
             value: time-sensitive
           - label: Critical - Critical notifications (Overrides mute)
             value: critical
-    name: interruption-level
-    description: For iOS - Set Interruption Level
+    name: 🚨 interruption-level
+    description: 🍎 Set Interruption Level
   sound:
     selector:
       text: null
-    name: Sound
+    name: 🔔 Sound
     description: >-
-      For iOS - Set Notification sound (Use 'none' to disable notificationsound). 
-      Refer to [Documentation](https://companion.home-assistant.io/docs/notifications/notification-sounds) for more info.
+      🍎 Set Notification sound (Use 'none' to disable notificationsound). 
+      Refer to
+      [Documentation](https://companion.home-assistant.io/docs/notifications/notification-sounds)
+      for more info.
+  notification_actions:
+    selector:
+      text:
+        multiline: true
+    name: 🎯 Notification Actions
+    default: >
+      # THESE ARE JUST EXAMPLES. Editing this will have ZERO effect on your
+      notifications. 
+
+      ACTION 1:
+       - action: URI                                      # URI can open Web Pages, Internal Home Assistant pages, or Mobile applications
+          title: 📸 Cameras                         # Simple title for the button. Can include emojis.
+          uri: /lovelace-mobile/cameras   # URI Action command. This example will open a Home Assistant dashboard within the HA App. 
+      ACTION 2:
+        - action: URI
+          title: 🔊 Ring
+          uri: app://com.ringapp                # This URI action will open the RING App on android. 
+      ACTION 3:
+        - action: URI
+          title: 📸 Cameras
+          uri: /lovelace-mobile/cameras
+
+      ADDITIONAL EXAMPLES:
+          - action: URI
+            title: 🔄 Backups
+            uri: /hassio/backups
+          - action: URI
+            title: 🏠 Blog
+            uri: https://www.home-assistant.io/latest-release-notes/
+          - action: URI
+            title: ℹ️ HA Info
+            uri: /config/info
+    description: >-
+      Define clickable actions. You can define up to 3 for Android. This section
+      is just an example of 3 defined actions. 
+  1_action_1_action:
+    selector:
+      select:
+        options:
+          - label: >-
+              URI     - Open app, HA dash, entity, system settings, etc (ie.
+              uri: 'app://com.twitter.android')
+            value: URI
+          - label: OPEN 🍎    - Open a URL in a browser
+            value: OPEN
+          - label: REPLY   - (Allow user to send text as a reply)
+            value: REPLY
+          - label: CALL     - Dial a phone number
+            value: CALLAndroid
+          - label: Alarm   - (¯\_(ツ)_/¯ idk what it does)
+            value: ALARM
+          - label: Silence - (¯\_(ツ)_/¯ idk what it does)
+            value: SILENCE
+    name: 1️⃣🛠️  Action 1 action
+  1_action_1_custom_action:
+    selector:
+      text: null
+    name: "1️⃣⚙️ Action 1: Custom Action"
+    description: >-
+      Unique Action names for building more robust Notification Action
+      Automations. Docs:
+      https://companion.home-assistant.io/docs/notifications/actionable-notifications#building-notification-action-scripts
+  1_action_1_title:
+    selector:
+      text: null
+    name: 1️⃣📝 Action 1 Title
+  1_action_1_uri:
+    selector:
+      text: null
+    name: 1️⃣🔗 Action 1 URI
+  action_1_authenticationrequired:
+    selector:
+      text: null
+    name: 1️⃣🔒 Action 1 Authentication Required
+    description: 🍎 'true' to require entering a passcode to use the action.
+  1_action_1_icon:
+    selector:
+      text: null
+    name: 1️⃣🧿 Action 1 Icon
+    description: 🍎 The icon to use for the notification.
+  1_action_1_destructive:
+    selector:
+      boolean: {}
+    name: 1️⃣🟥 Action 1 Destructive
+    description: "🍎 Highlight action button Red to represent a \"destructive\" action. "
+  action_1_textinputbuttontitle:
+    selector:
+      text: null
+    name: 1️⃣🗨️ Action 1 Text Input Button Title
+    description: 🍎 Title to use for text input for actions that prompt.
+  action_1_textinputplaceholder:
+    selector:
+      text: null
+    name: 1️⃣💭 Action 1 Text Input Placeholder
+    description: 🍎 Placeholder to use for text input for actions that prompt.
+  action_2_action:
+    selector:
+      select:
+        options:
+          - URI
+          - ALARM
+          - REPLY
+          - SILENCE
+          - CALL
+          - OPEN
+    name: 2️⃣🛠️Action 2 action
+  action_2_custom_action:
+    selector:
+      text: null
+    name: "2️⃣⚙️ Action 2: Custom Action"
+    description: >-
+      Unique Action names for building more robust Notification Action
+      Automations. Docs:
+      https://companion.home-assistant.io/docs/notifications/actionable-notifications#building-notification-action-scripts
+  action_2_title:
+    selector:
+      text: null
+    name: 2️⃣📝 Action 2 Title
+  action_2_uri:
+    selector:
+      text: null
+    name: 2️⃣🔗 Action 2 URI
+  action_2_authenticationrequired:
+    selector:
+      text: null
+    name: 2️⃣🔒 Action 2 Authentication Required
+    description: 🍎 'true' to require entering a passcode to use the action.
+  action_2_icon:
+    selector:
+      text: null
+    name: 2️⃣🧿 Action 2 Icon
+    description: 🍎 The icon to use for the notification.
+  action_2_destructive:
+    selector:
+      boolean: {}
+    name: 2️⃣🟥 Action 2 Destructive
+    description: "🍎 Highlight action button Red to represent a \"destructive\" action. "
+  action_2_textinputbuttontitle:
+    selector:
+      text: null
+    name: 2️⃣🗨️ Action 2 Text Input Button Title
+    description: 🍎 Title to use for text input for actions that prompt.
+  action_2_textinputplaceholder:
+    selector:
+      text: null
+    name: 2️⃣💭 Action 2 Text Input Placeholder
+    description: 🍎 Placeholder to use for text input for actions that prompt.
+  action_3_action:
+    selector:
+      select:
+        options:
+          - URI
+          - ALARM
+          - REPLY
+          - SILENCE
+          - CALL
+          - OPEN
+    name: 3️⃣🛠️ Action 3 action
+  action_3_custom_action:
+    selector:
+      text: null
+    name: "3️⃣⚙️ Action 3: Custom Action"
+    description: >-
+      Unique Action names for building more robust Notification Action
+      Automations. Docs:
+      https://companion.home-assistant.io/docs/notifications/actionable-notifications#building-notification-action-scripts
+  action_3_title:
+    selector:
+      text: null
+    name: 3️⃣📝 Action 3 Title
+  action_3_uri:
+    selector:
+      text: null
+    name: 3️⃣🔗 Action 3 URI
+  action_3_authenticationrequired:
+    selector:
+      text: null
+    name: 3️⃣🔒 Action 3 Authentication Required
+    description: 🍎 'true' to require entering a passcode to use the action.
+  action_3_icon:
+    selector:
+      text: null
+    name: 3️⃣🧿 Action 3 Icon
+    description: 🍎 The icon to use for the notification.
+  action_3_destructive:
+    selector:
+      boolean: {}
+    name: 3️⃣🟥 Action 3 Destructive
+    description: "🍎 Highlight action button Red to represent a \"destructive\" action. "
+  action_3_textinputbuttontitle:
+    selector:
+      text: null
+    name: 3️⃣🗨️ Action 3 Text Input Button Title
+    description: 🍎 Title to use for text input for actions that prompt.
+  action_3_textinputplaceholder:
+    selector:
+      text: null
+    name: 3️⃣💭 Action 3 Text Input Placeholder
+    description: 🍎 Placeholder to use for text input for actions that prompt.
 description: >-
   Notify a specific mobile device. Or Multiple!
 
   Has fields for nearly everything so you don't have to remember all that
   nonsense.  
 
-  [Notification Documentation](https://companion.home-assistant.io/docs/notifications/actionable-notifications)
+  [Notification
+  Documentation](https://companion.home-assistant.io/docs/notifications/actionable-notifications)
+
+
+  🤖 = Android Only
+
+  🍎 = Apple iOS Only
 icon: mdi:cellphone-message
