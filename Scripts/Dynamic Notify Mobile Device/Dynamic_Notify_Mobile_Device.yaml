@@ -617,7 +617,7 @@ fields:
     name: 1️⃣🔗 Action 1 URI
   action_1_authenticationrequired:
     selector:
-      text: null
+      boolean: {}
     name: 1️⃣🔒 Action 1 Authentication Required
     description: 🍎 'true' to require entering a passcode to use the action.
   1_action_1_icon:
@@ -669,7 +669,7 @@ fields:
     name: 2️⃣🔗 Action 2 URI
   action_2_authenticationrequired:
     selector:
-      text: null
+      boolean: {}
     name: 2️⃣🔒 Action 2 Authentication Required
     description: 🍎 'true' to require entering a passcode to use the action.
   action_2_icon:
@@ -721,7 +721,7 @@ fields:
     name: 3️⃣🔗 Action 3 URI
   action_3_authenticationrequired:
     selector:
-      text: null
+      boolean: {}
     name: 3️⃣🔒 Action 3 Authentication Required
     description: 🍎 'true' to require entering a passcode to use the action.
   action_3_icon:
