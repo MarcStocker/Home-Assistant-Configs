@@ -1,1 +1,1 @@
-![image](https://github.com/MarcStocker/Home-Assistant-Configs/blob/main/Scripts/Dynamic%20Notify%20Mobile%20Device/ActionExample.png)
+![image](https://github.com/user-attachments/assets/bd11ac4b-c858-4d07-89a6-ed83a9e28365)
