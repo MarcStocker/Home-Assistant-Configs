@@ -475,7 +475,7 @@ fields:
         step: 1
     name: ⏱️ Timeout
     description: 🤖 How long before the notification is automatically dismissed
-  progress_bar_value:
+  progress:
     selector:
       number:
         min: 1
