@@ -1,3 +1,11 @@
+# Description: My trash is picked up every week. But Recycling and Green waste is every other week. 
+# Requirements:
+# - Create a calendar (garbage_collection)
+# - Create an event on garbage_collection calendar named "Garbage Collection - Recycling", and another named "Garbage Collection - Green Waste"
+# - Create 2 of these templates, one for Recycling, and one for Green Waste. 
+
+# This sensor should never display anything above 14 days.
+
 {% set event = state_attr('calendar.garbage_collection', 'message') %}
 {% set start = state_attr('calendar.garbage_collection', 'start_time') %}
 {% if event == 'Garbage Collection - Recycling' and start %}
