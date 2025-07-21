@@ -67,6 +67,7 @@ sequence:
                   {% set notification.data = dict(notification.data, **{ 'message': "TTS" }) %}
                   {% set additional.data = dict(additional.data, **{ 'tts_text': message }) %}
                   {% set additional.data = dict(additional.data, **{ 'media_stream': media_stream | default("Default") }) %}
+                  {% set message = "" %}
                 {% endif %}
                 
                 {% if sticky %}
@@ -124,7 +125,7 @@ sequence:
               {% if title %}
                 {% set notification.data = dict(notification.data, **{ 'title': title }) %}
               {% endif %}  
-              {% if message and enable_tts == false %}
+              {% if message %}
                 {% set notification.data = dict(notification.data, **{ 'message': message }) %}
               {% endif %}
 
