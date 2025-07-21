@@ -50,7 +50,7 @@ sequence:
                 {% endif %} 
                 
                 {% if notification_icon %}
-                  {% set additional.data = dict(additional.data, **{ 'notification_icon': notification_icon }) %}
+                  {% set additional.data = dict(additional.data, **{ 'notification_icon': "notification_icon" }) %}
                 {% endif %} 
                 {% if notification_color %}
                   {% set hex_color = '#%02x%02x%02x' | format(notification_color[0], notification_color[1], notification_color[2]) %}
@@ -124,7 +124,7 @@ sequence:
               {% if title %}
                 {% set notification.data = dict(notification.data, **{ 'title': title }) %}
               {% endif %}  
-              {% if message %}
+              {% if message and enable_tts == false %}
                 {% set notification.data = dict(notification.data, **{ 'message': message }) %}
               {% endif %}
 
